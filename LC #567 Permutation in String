@@ -1,0 +1,54 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+
+        int n1 = s1.size();
+        int n2 = s2.size();
+        if(n1 > n2) return false;
+        unordered_map<char , int>counts1;
+        unordered_map<char , int>countwindow;
+
+        for(char c:s1)
+        {
+            counts1[c]++;
+        }
+
+        for(int i = 0 ; i < n1 ; i++)
+        {
+            countwindow[s2[i]]++;
+        }
+
+        if(countwindow == counts1) return true;
+
+        for(int i = n1 ; i < n2 ; i++)
+        {
+            char newChar = s2[i];
+            char oldChar = s2[i - n1];
+            countwindow[newChar]++;
+            countwindow[oldChar]--;
+            if(countwindow[oldChar] == 0)
+            {
+                countwindow.erase(oldChar);
+            }
+
+            if(countwindow == counts1)
+            {
+                return true;
+            }
+            
+        }
+
+        return false;
+
+
+
+
+
+
+
+
+
+
+        
+    }
+};
