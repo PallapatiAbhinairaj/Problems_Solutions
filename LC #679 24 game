@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool judgePoint24(vector<int>& nums) {
+        vector<double> numbers;
+        for (int num : nums) numbers.push_back(num); // convert to double for division
+        return solve(numbers);
+    }
+
+private:
+    bool solve(vector<double>& nums) {
+        const double EPS = 1e-6; // small tolerance for floating point comparison
+        if (nums.size() == 1) {
+            return abs(nums[0] - 24) < EPS;
+        }
+
+        // try every pair of numbers
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.size(); j++) {
+                if (i == j) continue;
+
+                vector<double> nextNums;
+                for (int k = 0; k < nums.size(); k++) {
+                    if (k != i && k != j) nextNums.push_back(nums[k]);
+                }
+
+                // try all operations
+                double a = nums[i], b = nums[j];
+                vector<double> candidates = {a + b, a - b, b - a, a * b};
+                if (abs(b) > EPS) candidates.push_back(a / b);
+                if (abs(a) > EPS) candidates.push_back(b / a);
+
+                for (double c : candidates) {
+                    nextNums.push_back(c);
+                    if (solve(nextNums)) return true;
+                    nextNums.pop_back();
+                }
+            }
+        }
+
+        return false;
+    }
+};
