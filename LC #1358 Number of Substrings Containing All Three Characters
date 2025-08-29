@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+
+        int left = 0;
+        int n = s.size();
+        int ans = 0;
+        int count[3]  {0,0,0};
+
+        for(int right = 0; right < n ; right++)
+        {
+            count[s[right] - 'a']++;    //ASCI values here , so it gets increasing like a , b , c ....
+
+            while(count[0] > 0 && count[1] > 0 && count[2] > 0)
+            {
+                ans += (n - right);
+
+                count[s[left] - 'a']--;
+                left++;
+            }
+        }
+
+        return ans;
+        
+    }
+};
