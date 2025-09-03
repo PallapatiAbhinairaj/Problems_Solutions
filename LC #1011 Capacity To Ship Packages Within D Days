@@ -1,3 +1,4 @@
+//Optimised Approach:
 class Solution {
 public:
 
@@ -50,3 +51,45 @@ int findDays(vector<int>& weights , int mid)
     
 };
 
+
+
+//BruteForce Approach:
+class Solution {
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+
+        int n = weights.size();
+        int totalWeight = accumulate(weights.begin() , weights.end(), 0);
+        int minCap = *max_element(weights.begin(),weights.end());    
+        int maxCap = totalWeight;
+        int best = maxCap;
+
+        for(int cap = minCap; cap<= maxCap ;minCap++)
+        {
+            int requiredDays = 1;
+            int currentLoad = 0;
+
+            for(int w : weights)
+            {
+                if(currentLoad + w <= cap)
+                {
+                    currentLoad += w;
+                }
+                else
+                {
+                    requiredDays++;
+                    currentLoad = w;
+                }
+            }
+            if(requiredDays <= days)
+            {
+                best = cap;
+                break;
+            }
+        }
+
+        return best;
+
+              
+    }
+};
