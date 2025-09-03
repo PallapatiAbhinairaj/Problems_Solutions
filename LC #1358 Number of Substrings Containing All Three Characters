@@ -1,3 +1,52 @@
+//Brute Force Approach
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+
+        int n = s.size();
+        int count = 0;
+
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = i ; j < n ; j++)
+            {
+                bool hasA = false;
+                bool hasB = false;
+                bool hasC = false;
+
+                for(int k = i ; k <= j ; k++)
+                {
+                    if(s[k] == 'a')
+                    {
+                        hasA = true;
+                    }
+                    if(s[k] == 'b')
+                    {
+                        hasB = true;
+                    }
+                    if(s[k] == 'c')
+                    {
+                        hasC = true;
+                    }
+                }
+                if(hasA && hasB && hasC)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+
+        
+    }
+};
+
+
+
+
+//Optimised Approach:
+
 class Solution {
 public:
     int numberOfSubstrings(string s) {
