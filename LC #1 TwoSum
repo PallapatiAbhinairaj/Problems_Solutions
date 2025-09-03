@@ -1,22 +1,46 @@
-**fsdfsd**
+//Bruteforce Solution//
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = i + 1; j < n ; j++)
+            {
+                if(nums[i] + nums[j] == target)
+                {
+                    return {i,j};
+                }
+            }
+        }
+        return {};
+    }
+};
+
+
+//Optimised Solution.
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
 
         int n = nums.size();
+        unordered_map<int , int>mp;   // using unodered_map i did this , hash map
+
         for(int i = 0 ; i < n ; i++)
         {
-            for(int j = i + 1 ; j < n ; j++)
-            {
-                if(nums[i] + nums[j] == target )
-                {
-                    return {i,j};
-                }
-            }
-        }
+            int rem = target - nums[i];    //nums[i] + nums[j] == target ; nums[j] = target - nums[i];
 
-        return {-1,-1};
+            if(mp.find(rem) != mp.end())
+            {
+                return {mp[rem] , i};
+            }
+
         
+
+        mp[nums[i]] = i;
+        }
+        
+        return {};
     }
 };
