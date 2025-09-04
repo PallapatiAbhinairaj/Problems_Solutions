@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+
+        int left = 0 , right = s.size()-1;
+
+        while(left < right)
+        {
+            if(!isalnum(s[left]))    //move left it not aplhanumeric
+            {
+                left++;
+                continue;
+            }
+            if(!isalnum(s[right]))   //move right it not aplhanumeric
+            {
+                right--;
+                continue;
+            }
+
+            if(tolower(s[left]) != tolower(s[right]))     //compare lowercase charecters
+            {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+
+        return true;
+
+
+
+
+                
+        
+    }
+};
