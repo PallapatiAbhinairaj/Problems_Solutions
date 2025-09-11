@@ -11,7 +11,8 @@ public:
                 dq.pop_front();
             }
 
-            while(!dq.empty() && nums[dq.back()] < nums[i])          // remove all element smaller than current element
+            while(!dq.empty() && nums[dq.back()] < nums[i])          // remove all element smaller than current element and 
+                                                                    // nums[dq.back()] < nums[i] ---> if the current number is greater than previous number than no need of considering the pervious number... just time waste 
             { 
                 dq.pop_back();
             }
