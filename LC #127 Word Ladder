@@ -1,0 +1,54 @@
+https://leetcode.com/problems/word-ladder/
+
+
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+
+        unordered_set<string> dict(wordList.begin() , wordList.end());
+        if(!dict.count(endWord)) return 0;
+
+        unordered_set<string> beginSet {beginWord};
+        unordered_set<string> endSet {endWord};
+        unordered_set<string> visited;
+        int len = 1;
+
+        while(!beginSet.empty() && !endSet.empty()) {
+
+            if(beginSet.size() > endSet.size()) swap(beginSet , endSet);
+
+            unordered_set<string> nextSet;
+
+            for(const string &word : beginSet) {
+                string cur = word;
+
+                for(int i = 0 ; i < cur.size() ; i++)
+                {
+                    char original = cur[i];
+
+                    for(char c = 'a' ; c <= 'z' ; ++c)
+                    {
+                        if(c == original) continue;
+                        cur[i] = c;
+
+                        if(endSet.count(cur)) return len + 1;
+
+                        if(dict.count(cur) && !visited.count(cur)) {
+                            nextSet.insert(cur);
+                            visited.insert(cur);
+                        }
+                    }
+
+                    cur[i] = original;
+                }
+                
+            }
+
+            beginSet.swap(nextSet);
+            ++len;
+        }
+
+        return 0;
+        
+    }
+};
