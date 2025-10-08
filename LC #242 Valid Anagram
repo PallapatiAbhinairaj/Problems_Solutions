@@ -1,0 +1,45 @@
+
+question link  : https://leetcode.com/problems/valid-anagram/submissions/1795273119/
+
+
+//Brute Force Approach :sort and check. (time limit exceeded)
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        sort(s.begin() , s.end());
+        sort(t.begin() , t.end());
+
+        do{
+            if(s==t) return true;
+        } while(next_permutation(s.begin() , s.end()));
+        return false;
+
+
+        
+    }
+};
+
+
+---------------------------------------------------------------------------
+//Optmised approach : using hash set 
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length() != t.length()) return false;
+
+        unordered_map<char , int> count;
+
+        for(char c :s) count[c]++;
+        for(char c : t) count[c] --;
+        for(auto pair : count )
+        {
+            if(pair.second != 0) return false;
+        }
+
+        return true;
+       
+    }
+};
