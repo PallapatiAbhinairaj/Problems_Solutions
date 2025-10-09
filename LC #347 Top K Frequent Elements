@@ -1,0 +1,100 @@
+Question link :  https://leetcode.com/problems/top-k-frequent-elements/
+
+==========================================================================================
+Brute force approach : 
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+
+        unordered_map<int , int >freq;
+
+        for(int num : nums)
+        {
+            freq[num]++;
+        }
+
+        vector<int>result;
+        for(int i = 0 ; i < k ; i++)
+        {
+            int maxFreq = 0;
+            int maxNum = 0;
+
+            for(auto&entry : freq)
+            {
+                if(entry.second > maxFreq)
+                {
+                    maxFreq = entry.second;
+                    maxNum = entry.first;
+                }
+            }
+
+            result.push_back(maxNum);
+
+            freq.erase(maxNum);
+        }
+
+        return result;
+    }
+};
+
+==========================================================================================
+
+Optmised appraoch : bucket approach
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+
+        unordered_map<int,int> freq;
+
+        for(int num : nums)
+        {
+            freq[num]++;
+        }
+
+        int n = nums.size();
+        vector<vector<int>> buckets(n+1);
+
+        for(auto& entry : freq) 
+        {
+            int number = entry.first;
+            int frequency = entry.second;
+            buckets[frequency].push_back(number);
+        }
+
+
+        vector<int> result;
+        for(int i = n ; i >= 0 && result.size() < k ; i--) {
+            for(int num : buckets[i]) {
+                result.push_back(num);
+                if(result.size() == k)break;
+            }
+        }
+        
+        return result;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
