@@ -1,0 +1,77 @@
+Question link : https://leetcode.com/problems/group-anagrams/submissions/1796090718/
+
+//Brute force approach : 
+
+class Solution {
+public:
+
+        bool isAnagram(string a , string b) {
+            if(a.size() != b.size()) return false;
+            sort(a.begin() , a.end());
+            sort(b.begin() , b.end());
+            return a == b;
+        }
+
+        vector<vector<string>> groupAnagrams(vector<string>& strs) {
+
+            int n = strs.size();
+            vector<vector<string>> result;
+            vector<bool> visited(n,false);
+
+            for(int i = 0 ; i < n ; i++) {
+                if(visited[i]) continue;
+                vector<string>group;
+                group.push_back(strs[i]);
+                visited[i] = true;
+
+                for(int j = i+1 ; j < n ; j++)
+                {
+                    if(!visited[j] && isAnagram(strs[i] , strs[j]))
+                    {
+                        group.push_back(strs[j]);
+                        visited[j] = true;
+                    }
+                }
+                result.push_back(group);
+            }
+
+            return result;
+        
+    }
+};
+
+//Time Complexity : O(N∗Klogk)
+
+
+=============================================================================
+//Optimised Version : 
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+
+        unordered_map<string , vector<string>> mp;
+
+        for(string s : strs){
+            string key = s;
+            sort(key.begin() , key.end());
+            mp[key].push_back(s);
+        }
+
+        vector<vector<string>> result;
+        for(auto& entry : mp) {    //entry is now a reference to the original element in the map.so that it doesnt take extra space , for larger dataset it will be usefull
+            result.push_back(entry.second);
+        }
+
+        return result;
+        
+    }
+};
+
+
+
+
+
+
+
+
