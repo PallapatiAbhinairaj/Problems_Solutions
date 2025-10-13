@@ -1,0 +1,82 @@
+question link : https://leetcode.com/problems/find-resultant-array-after-removing-anagrams/description/
+
+Bruteforce approach:
+
+class Solution {
+public:
+    vector<string> removeAnagrams(vector<string>& words) {
+
+        int n = words.size();
+        vector<string>res;
+
+        for(int i = 0 ; i < n ; i++)
+        {
+            if(res.empty())
+            {
+                res.push_back(words[i]);
+            }
+            else
+            {
+                string cur = words[i];
+                string prev = res.back();
+
+                sort(cur.begin() , cur.end());
+                sort(prev.begin(), prev.end());
+
+                if(cur != prev)
+                {
+                    res.push_back(words[i]);
+                }
+            }
+        }
+
+        return res;
+
+        
+    }
+};
+
+
+time complexity : O ( n * k log k )
+space complexity : O (n);
+
+
+optmise approach : 
+
+
+class Solution {
+public:
+    vector<string> removeAnagrams(vector<string>& words) {
+
+        string prevWord = "";
+        vector<string>result;
+
+        for(string word : words)
+        {
+            string sortedWord = word;
+            sort(sortedWord.begin() , sortedWord.end());
+
+            if(sortedWord != prevWord)
+            {
+                result.push_back(word);
+                prevWord = sortedWord;
+            }
+        }
+
+        return result;        
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
