@@ -4,51 +4,30 @@ public:
 
         int n1 = s1.size();
         int n2 = s2.size();
-        if(n1 > n2) return false;
-        unordered_map<char , int>counts1;
-        unordered_map<char , int>countwindow;
 
-        for(char c:s1)
+        vector<int>count1(26,0);
+        vector<int>count2(26,0);
+
+        for(char c : s1)
         {
-            counts1[c]++;
+            count1[c - 'a']++;
         }
-
+        
         for(int i = 0 ; i < n1 ; i++)
         {
-            countwindow[s2[i]]++;
+            count2[s2[i] - 'a']++;
         }
 
-        if(countwindow == counts1) return true;
-
-        for(int i = n1 ; i < n2 ; i++)
+        for(int i = 0 ; i < n2 - n1 ; i++)
         {
-            char newChar = s2[i];
-            char oldChar = s2[i - n1];
-            countwindow[newChar]++;
-            countwindow[oldChar]--;
-            if(countwindow[oldChar] == 0)
-            {
-                countwindow.erase(oldChar);
-            }
+            if(count1 == count2) return true;
 
-            if(countwindow == counts1)
-            {
-                return true;
-            }
-            
+            count2[s2[i+n1] - 'a']++;
+            count2[s2[i] - 'a']--;
         }
 
-        return false;
 
-
-
-
-
-
-
-
-
-
+        return count1 == count2;
         
     }
 };
