@@ -10,8 +10,8 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
 
+    ListNode* reverseList(ListNode* head) {
         ListNode* temp = head;
         ListNode* prev = NULL;
 
@@ -19,10 +19,50 @@ public:
         {
             ListNode* front = temp -> next;
             temp -> next = prev;
-            prev = temp;       
-            temp = front;  
-        }  
-        return prev;                
+            prev = temp;
+            temp = front;
+        }
+
+        return prev;            
     }
-    
+
+    void reorderList(ListNode* head) {
+        
+
+        if(head == NULL || head -> next == NULL) return;
+
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast -> next && fast -> next -> next)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+
+        ListNode* second = reverseList(slow -> next);
+        slow -> next = NULL;
+
+        ListNode* firstHalf = head;
+
+        while(second)
+        {
+            ListNode* temp1 = firstHalf -> next;
+            ListNode* temp2 = second -> next;
+
+            firstHalf -> next = second;
+            second -> next = temp1;
+
+            firstHalf = temp1;
+            second = temp2;
+        }
+
+        
+
+
+              
+        
+     
+        
+    }
 };
