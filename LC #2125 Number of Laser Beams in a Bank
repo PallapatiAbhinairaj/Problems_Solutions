@@ -1,0 +1,50 @@
+#one Solution :
+
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+
+        int prev = 0 ; 
+        int  ans = 0;
+
+        for(string s:bank)
+        {
+            int devices = count(s.begin(),s.end(),'1');
+            if(devices == 0)continue;
+            ans += prev * devices;
+            prev = devices;
+        }
+
+        return ans;
+        
+    }
+};
+
+
+Another Solution:
+
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+
+        int prev = 0;
+        int ans = 0;
+
+        for(string s:bank)
+        {
+            int count = 0;
+            for(char c:s)
+            {
+                if(c=='1')count++;
+            }
+            if(count != 0)
+            {
+                ans += (prev * count);
+                prev = count;
+            }            
+        }
+
+        return ans;
+        
+    }
+};
