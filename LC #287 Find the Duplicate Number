@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+
+        int slow = nums[0];
+        int fast = nums[0];
+
+        do {                                  //start slow and fast pointer untill they meet.
+            slow = nums[slow];
+            fast = nums[nums[fast]];                //nums[2];
+        } while(slow != fast);
+
+        fast = nums[0];
+
+        while(slow != fast) {                 //after they met , move both pointers at same speed untill they meet again.
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+        
+    }
+};
