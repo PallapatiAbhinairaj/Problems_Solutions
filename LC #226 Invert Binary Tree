@@ -1,0 +1,49 @@
+#code using queue (BFS) level by level...
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+
+        if(root == NULL)return NULL;
+
+        queue<TreeNode*>q;
+
+        q.push(root);
+
+        while(!q.empty())
+        {
+            TreeNode* curr = q.front();
+            q.pop();
+
+            swap(curr->left,curr->right);
+
+            if(curr->left)q.push(curr->left);
+            if(curr->right)q.push(curr->right);
+        }
+
+        return root;
+        
+    }
+};
+
+
+
+code using recurrance :DFS....
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+
+        if(root == NULL)return NULL;
+
+        TreeNode* left = invertTree(root -> left);
+        TreeNode* right = invertTree(root -> right);
+
+        root -> left = right;
+        root -> right = left;
+        
+        return root;
+    }
+};
+
+
